@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>player</title>
+</head>
+<body>
+
+    <script src="flv.js"></script>
+    <video id="videoElement"></video>
+    <script>
+         if (flvjs.isSupported()) {
+        var videoElement = document.getElementById('videoElement');
+        var flvPlayer = flvjs.createPlayer({
+            type: 'mp4',
+            url:"http://60.205.15.71/cloudvideo/kservice-route/get.json?timestamp=1493027090&fid=0600400204000058FD76F200010003DF0000000000-0000-0000-0160-D40F00000000.mp4&ns=video.acfun.cn&vid=58fd74ee0cf24ee21290e314&customer_id=5859fdaee4b0eaf5dd325b91&sign=ct58fdc9120cf24ee2129c0092"
+        });
+        flvPlayer.attachMediaElement(videoElement);
+        flvPlayer.load();
+        flvPlayer.play();
+    }
+    </script>
+
+</body>
+</html>
