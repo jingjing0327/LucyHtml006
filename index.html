@@ -1,15 +1,64 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-    <title>flv.js demo</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+	<title>七彩贝壳url刷量</title>
+	<script type="text/javascript" src="Concurrent.Thread.js"></script>
+	<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+	
 </head>
+<body style="padding: 20px;">
+	<h1>七彩贝壳url刷量</h1>
+	<textarea rows="10" cols="30" id="urlx" style="display:block;margin-top: 20px;width: 100%;"></textarea>
+	<button class="button" id="btn">开始</button>
+	<p id="count">0</p>
+	<style type="text/css">
+		.button {
+		    background-color: #4CAF50; /* Green */
+		    border: none;
+		    color: white;
+		    padding: 15px 32px;
+		    text-align: center;
+		    text-decoration: none;
+		    display: inline-block;
+		    font-size: 16px;
+		    margin-top: 20px;
+		}
+	</style>
 
-<body>
-    
-   <iframe src="player.html"></iframe>
-    
+	<script type="text/javascript">
+		var isRun=false;
+		function net() {
+			if(!isRun){
+				return;
+			}
+			$.ajax({ url: $("#url").val(),
+			 	context: document.body,
+			  	success: function(){
+		        	$("#count").text(parseInt($("#count").text())+1)
+		        	net();
+		    	},
+		    	error:function(){
+		    		$("#count").text("0")
+		    	}
+			});
+		}
+
+		$(document).ready(function(){
+			$("#btn").click(function(){
+				if(!isRun){
+					isRun=true;
+					$("#btn").text("停止")
+				}else{
+					isRun=false;
+					$("#btn").text("开始")
+				}
+				Concurrent.Thread.create(function() {
+					net();
+			     });
+			});
+		});
+	</script>
 </body>
-
 </html>
